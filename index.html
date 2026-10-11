@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trang web tỏ tình lãng mạn">
+    <title>💕 Em Ơi... Anh Có Điều Muốn Nói 💕</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-heart">
+            <div class="heart-shape"></div>
+            <p class="loading-text">Đang chuẩn bị điều bất ngờ...</p>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aurora Background -->
+    <div id="aurora">
+        <div class="aurora-layer aurora-1"></div>
+        <div class="aurora-layer aurora-2"></div>
+        <div class="aurora-layer aurora-3"></div>
+    </div>
+
+    <!-- Stars Canvas -->
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Shooting Stars -->
+    <div id="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <!-- Floating Hearts Container -->
+    <div id="floating-hearts"></div>
+
+    <!-- Rose Petals -->
+    <div id="rose-petals"></div>
+
+    <!-- HTML5 Audio - Nhạc local -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="hanee.mp3" type="audio/mpeg">
+        <source src="noi-nay-co-anh.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Player -->
+    <div id="music-player" class="music-player">
+        <button id="music-toggle" class="music-btn" title="Bật/Tắt nhạc">
+            <span class="music-icon">🎵</span>
+            <div class="music-waves">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </button>
+        <div class="playlist-panel" id="playlist-panel">
+            <h4>🎶 Playlist Tình Yêu</h4>
+            <p class="playlist-note">🎵 2 bài hát đã sẵn sàng! Nhấn 🎵 để bật nhạc</p>
+            <div class="song-list">
+                <button class="song-item active" data-src="hanee.mp3">
+                    <span class="song-playing">♪</span>
+                    <span class="song-name">Hanee - Trần Hoàng Nhật 💕</span>
+                </button>
+                <button class="song-item" data-src="noi-nay-co-anh.mp3">
+                    <span class="song-playing">♪</span>
+                    <span class="song-name">Nơi Này Có Anh 🌟</span>
+                </button>
+            </div>
+            <div class="now-playing">
+                <div class="np-bar"></div>
+                <div class="np-bar"></div>
+                <div class="np-bar"></div>
+                <div class="np-bar"></div>
+                <div class="np-bar"></div>
+                <span id="np-text">Chưa phát nhạc</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Navigation Dots -->
+    <nav id="nav-dots">
+        <a href="#welcome" class="nav-dot active" data-tip="Trang chủ"></a>
+        <a href="#marquee-section" class="nav-dot" data-tip="Lời yêu"></a>
+        <a href="#love-letter" class="nav-dot" data-tip="Thư tình"></a>
+        <a href="#gallery" class="nav-dot" data-tip="Kỷ niệm"></a>
+        <a href="#reasons" class="nav-dot" data-tip="Lý do"></a>
+        <a href="#timeline" class="nav-dot" data-tip="Hành trình"></a>
+        <a href="#love-counter" class="nav-dot" data-tip="Thời gian"></a>
+        <a href="#question" class="nav-dot" data-tip="Câu hỏi"></a>
+    </nav>
+
+    <!-- ===== Section 1: Welcome ===== -->
+    <section id="welcome" class="section">
+        <div class="welcome-content">
+            <div class="welcome-title-wrap">
+                <h1 class="welcome-title" id="welcome-title"></h1>
+                <div class="title-sparkles" id="title-sparkles"></div>
+            </div>
+            <div class="envelope" id="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="envelope-heart"></div>
+                    <div class="letter-inside">
+                        <p>Nhấn vào để mở</p>
+                        <span class="letter-heart">❤️</span>
+                    </div>
+                </div>
+                <div class="envelope-shadow"></div>
+            </div>
+            <div class="scroll-hint" id="scroll-hint" style="display:none;">
+                <div class="mouse-scroll">
+                    <div class="mouse">
+                        <div class="wheel"></div>
+                    </div>
+                </div>
+                <span>Cuộn xuống để khám phá</span>
+                <div class="scroll-arrows"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 2: Running Text / Marquee ===== -->
+    <section id="marquee-section" class="section">
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <span class="marquee-text">💖 Người con gái bất ngờ đến với cuộc đời anh 💖 Em là tất cả của anh 💖 Anh
+                    yêu em nhiều lắm 💖 Em là điều tuyệt vời nhất 💖 Nơi này có anh, có em 💖 Anh muốn bên em mãi mãi
+                    💖</span>
+                <span class="marquee-text">💖 Người con gái bất ngờ đến với cuộc đời anh 💖 Em là tất cả của anh 💖 Anh
+                    yêu em nhiều lắm 💖 Em là điều tuyệt vời nhất 💖 Nơi này có anh, có em 💖 Anh muốn bên em mãi mãi
+                    💖</span>
+            </div>
+        </div>
+        <div class="center-message fade-in">
+            <div class="song-badge">🎶 Hanee × Nơi Này Có Anh 🎶</div>
+            <h1 class="glowing-text shimmer">Gửi Người Anh Yêu</h1>
+            <div class="heart-divider">
+                <div class="line"></div>
+                <span class="beating-heart">♥</span>
+                <div class="line"></div>
+            </div>
+            <p class="subtitle-text fade-in" style="--delay:.3s">"Nơi này có anh, ngàn hoa bốn mùa..."</p>
+        </div>
+        <div class="marquee-container reverse">
+            <div class="marquee-track reverse-track">
+                <span class="marquee-text alt">🌹 Từ khi gặp em thế giới anh đã thay đổi 🌹 Em là giấc mơ đẹp nhất 🌹
+                    Nơi nào có em là nơi anh muốn về 🌹 Chẳng cần hoàn hảo chỉ cần là em 🌹 Anh sẽ yêu em đến cuối cuộc
+                    đời 🌹</span>
+                <span class="marquee-text alt">🌹 Từ khi gặp em thế giới anh đã thay đổi 🌹 Em là giấc mơ đẹp nhất 🌹
+                    Nơi nào có em là nơi anh muốn về 🌹 Chẳng cần hoàn hảo chỉ cần là em 🌹 Anh sẽ yêu em đến cuối cuộc
+                    đời 🌹</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 3: Love Letter ===== -->
+    <section id="love-letter" class="section">
+        <div class="letter-container fade-in">
+            <div class="letter-paper">
+                <div class="paper-deco tl"></div>
+                <div class="paper-deco tr"></div>
+                <div class="paper-deco bl"></div>
+                <div class="paper-deco br"></div>
+                <div class="letter-header">
+                    <div class="letter-seal">💌</div>
+                    <span class="letter-date" id="current-date"></span>
+                    <h2 class="letter-title">Thư Tình Gửi Em</h2>
+                    <div class="title-line"></div>
+                </div>
+                <div class="letter-body">
+                    <p id="typewriter-text" class="typewriter"></p>
+                    <span class="cursor">|</span>
+                </div>
+                <div class="letter-footer">
+                    <div class="sig-line"></div>
+                    <p class="signature">Người luôn yêu em ❤️</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 4: Gallery ===== -->
+    <section id="gallery" class="section">
+        <h2 class="section-title fade-in">
+            <span class="title-heart">📸</span>
+            Khoảnh Khắc Đẹp
+            <span class="title-heart">📸</span>
+        </h2>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in" style="--delay:.1s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">🌅</div>
+                        <p>Hoàng hôn cùng em</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Mỗi hoàng hôn đẹp hơn khi có em bên cạnh"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="--delay:.2s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">☕</div>
+                        <p>Cà phê sáng</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Ly cà phê ngọt hơn khi uống cùng em"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="--delay:.3s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">🌙</div>
+                        <p>Đêm trăng sao</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Trăng sao nào cũng không sáng bằng mắt em"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="--delay:.4s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">🎂</div>
+                        <p>Sinh nhật em</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Ngày em sinh ra là ngày đẹp nhất thế gian"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="--delay:.5s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">🌸</div>
+                        <p>Mùa xuân</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Em đến như mùa xuân, làm tim anh nở hoa"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item fade-in" style="--delay:.6s">
+                <div class="gallery-card">
+                    <div class="gallery-front">
+                        <div class="g-emoji">💑</div>
+                        <p>Bên nhau mãi</p>
+                    </div>
+                    <div class="gallery-back">
+                        <p>"Chỉ cần bên em, thế giới đã đủ đầy"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 5: Reasons ===== -->
+    <section id="reasons" class="section">
+        <h2 class="section-title fade-in">
+            <span class="title-heart">💕</span>
+            Những Lý Do Anh Yêu Em
+            <span class="title-heart">💕</span>
+        </h2>
+        <div class="reasons-grid">
+            <div class="reason-card fade-in" style="--delay:.1s">
+                <div class="card-glow"></div>
+                <div class="card-icon">😊</div>
+                <h3>Nụ Cười Của Em</h3>
+                <p>Mỗi lần em cười, trái tim anh lại rung động. Nụ cười ấy làm tan chảy mọi nỗi buồn.</p>
+            </div>
+            <div class="reason-card fade-in" style="--delay:.2s">
+                <div class="card-glow"></div>
+                <div class="card-icon">💪</div>
+                <h3>Sự Mạnh Mẽ</h3>
+                <p>Em luôn kiên cường trước mọi khó khăn. Điều đó khiến anh ngưỡng mộ em vô cùng.</p>
+            </div>
+            <div class="reason-card fade-in" style="--delay:.3s">
+                <div class="card-glow"></div>
+                <div class="card-icon">🤗</div>
+                <h3>Sự Quan Tâm</h3>
+                <p>Em luôn biết cách khiến anh cảm thấy được yêu thương và trân trọng mỗi ngày.</p>
+            </div>
+            <div class="reason-card fade-in" style="--delay:.4s">
+                <div class="card-glow"></div>
+                <div class="card-icon">✨</div>
+                <h3>Sự Đặc Biệt</h3>
+                <p>Trong hàng triệu người, anh chỉ nhìn thấy em. Em là duy nhất trong tim anh.</p>
+            </div>
+            <div class="reason-card fade-in" style="--delay:.5s">
+                <div class="card-glow"></div>
+                <div class="card-icon">🌙</div>
+                <h3>Đêm Khuya Cùng Em</h3>
+                <p>Những cuộc trò chuyện đến khuya cùng em là khoảnh khắc anh trân quý nhất.</p>
+            </div>
+            <div class="reason-card fade-in" style="--delay:.6s">
+                <div class="card-glow"></div>
+                <div class="card-icon">🏠</div>
+                <h3>Em Là Nhà</h3>
+                <p>Bên em, dù ở đâu anh cũng cảm thấy như đang ở nhà. Em là nơi anh thuộc về.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 6: Timeline ===== -->
+    <section id="timeline" class="section">
+        <h2 class="section-title fade-in">
+            <span class="title-heart">💫</span>
+            Hành Trình Của Chúng Mình
+            <span class="title-heart">💫</span>
+        </h2>
+        <div class="timeline">
+            <div class="timeline-line-fill" id="timeline-fill"></div>
+            <div class="timeline-item fade-in" style="--delay:.1s">
+                <div class="timeline-dot">
+                    <div class="dot-ring"></div>
+                </div>
+                <div class="timeline-content left">
+                    <div class="tl-icon">🌟</div>
+                    <h3>Lần Đầu Gặp Nhau</h3>
+                    <p>Khoảnh khắc anh nhìn thấy em, anh biết cuộc đời anh sẽ không bao giờ giống trước nữa...</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="--delay:.2s">
+                <div class="timeline-dot">
+                    <div class="dot-ring"></div>
+                </div>
+                <div class="timeline-content right">
+                    <div class="tl-icon">💬</div>
+                    <h3>Những Tin Nhắn Đầu Tiên</h3>
+                    <p>Mỗi tin nhắn từ em đều khiến tim anh đập nhanh hơn. Anh đếm từng giây chờ em rep...</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="--delay:.3s">
+                <div class="timeline-dot">
+                    <div class="dot-ring"></div>
+                </div>
+                <div class="timeline-content left">
+                    <div class="tl-icon">☕</div>
+                    <h3>Buổi Hẹn Đầu Tiên</h3>
+                    <p>Ngồi đối diện em, anh hồi hộp đến mức quên cả uống cà phê...</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="--delay:.4s">
+                <div class="timeline-dot">
+                    <div class="dot-ring"></div>
+                </div>
+                <div class="timeline-content right">
+                    <div class="tl-icon">🎵</div>
+                    <h3>Bài Hát Của Mình</h3>
+                    <p>Nghe "Nơi Này Có Anh" cùng em, anh biết nơi anh thuộc về chính là bên em...</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="--delay:.5s">
+                <div class="timeline-dot">
+                    <div class="dot-ring"></div>
+                </div>
+                <div class="timeline-content left">
+                    <div class="tl-icon">❤️</div>
+                    <h3>Và Bây Giờ...</h3>
+                    <p>Anh muốn nói với em điều quan trọng nhất cuộc đời anh. Cuộn xuống nhé...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 7: Love Counter ===== -->
+    <section id="love-counter" class="section">
+        <div class="counter-container fade-in">
+            <h2 class="counter-title">Anh Đã Yêu Em Được</h2>
+            <div class="counter-grid">
+                <div class="counter-item">
+                    <div class="counter-circle">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="ring-bg" />
+                            <circle cx="60" cy="60" r="54" class="ring-fill" id="ring-days" />
+                        </svg>
+                        <span class="counter-number" id="counter-days">0</span>
+                    </div>
+                    <span class="counter-label">Ngày</span>
+                </div>
+                <div class="counter-sep">:</div>
+                <div class="counter-item">
+                    <div class="counter-circle">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="ring-bg" />
+                            <circle cx="60" cy="60" r="54" class="ring-fill" id="ring-hours" />
+                        </svg>
+                        <span class="counter-number" id="counter-hours">0</span>
+                    </div>
+                    <span class="counter-label">Giờ</span>
+                </div>
+                <div class="counter-sep">:</div>
+                <div class="counter-item">
+                    <div class="counter-circle">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="ring-bg" />
+                            <circle cx="60" cy="60" r="54" class="ring-fill" id="ring-minutes" />
+                        </svg>
+                        <span class="counter-number" id="counter-minutes">0</span>
+                    </div>
+                    <span class="counter-label">Phút</span>
+                </div>
+                <div class="counter-sep">:</div>
+                <div class="counter-item">
+                    <div class="counter-circle">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="ring-bg" />
+                            <circle cx="60" cy="60" r="54" class="ring-fill" id="ring-seconds" />
+                        </svg>
+                        <span class="counter-number" id="counter-seconds">0</span>
+                    </div>
+                    <span class="counter-label">Giây</span>
+                </div>
+            </div>
+            <p class="counter-sub">...và sẽ còn yêu em mãi mãi 💕</p>
+        </div>
+    </section>
+
+    <!-- ===== Section 8: The Big Question ===== -->
+    <section id="question" class="section">
+        <div class="question-container">
+            <div class="big-heart-bg">
+                <div class="pulse-heart">💖</div>
+            </div>
+            <h2 class="question-title fade-in">Em Ơi...</h2>
+            <p class="question-text fade-in" style="--delay:.3s">Anh biết anh không hoàn hảo, nhưng anh hứa sẽ dành mọi
+                thứ tốt đẹp nhất cho em.<br><em class="lyric-quote">"Nơi này có anh, counting stars until the
+                    dawn..."</em></p>
+            <h1 class="big-question fade-in" style="--delay:.6s">Em Có Đồng Ý Làm Người Yêu Anh Không? 💍</h1>
+            <div class="buttons-container fade-in" style="--delay:.9s">
+                <button id="yes-btn" class="answer-btn yes-btn"><span class="btn-text">Có! Em Đồng Ý 💕</span><span
+                        class="btn-shine"></span></button>
+                <button id="no-btn" class="answer-btn no-btn"><span class="btn-text">Để Em Suy Nghĩ...</span></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Section 9: Celebration ===== -->
+    <section id="celebration" class="section" style="display:none;">
+        <div class="celebration-content">
+            <h1 class="celebration-title">🎉 YAAAAY! 🎉</h1>
+            <h2 class="celebration-subtitle">Em Đã Đồng Ý!</h2>
+            <div class="celebration-heart"><span>❤️</span></div>
+            <p class="celebration-text">Anh hứa sẽ yêu em, chăm sóc em và làm em hạnh phúc mỗi ngày!</p>
+            <p class="celebration-promise">Từ hôm nay, chúng mình là của nhau 💑</p>
+            <div class="celebration-song">🎵 "Nơi Này Có Anh" sẽ là bài hát của chúng mình 🎵</div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
